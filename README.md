@@ -1,27 +1,14 @@
-[//]: # (SPDX-License-Identifier: CC-BY-4.0)
+## What is this?
 
-## Hyperledger Fabric Samples
+A fork of https://github.com/hyperledger/fabric-samples. This is a WIP that nobody should use without first analyzing it since it could break a fabric installation.
 
-Please visit the [installation instructions](http://hyperledger-fabric.readthedocs.io/en/latest/install.html)
-to ensure you have the correct prerequisites installed. Please use the
-version of the documentation that matches the version of the software you
-intend to use to ensure alignment.
+## How to install it?
 
-## Download Binaries and Docker Images
+1. Install HyperLedger Fabric [prerequisites](https://hyperledger-fabric.readthedocs.io/en/latest/prereqs.html)
+2. Install HyperLedger Fabric [samples, binaries and docker images](http://hyperledger-fabric.readthedocs.io/en/latest/install.html).
 
-The [`scripts/bootstrap.sh`](https://github.com/hyperledger/fabric-samples/blob/release-1.2/scripts/bootstrap.sh)
-script will preload all of the requisite docker
-images for Hyperledger Fabric and tag them with the 'latest' tag. Optionally,
-specify a version for fabric, fabric-ca and thirdparty images. Default versions
-are 1.2.0, 1.2.0 and 0.4.10 respectively.
+Note that to install it you must use a specific branch (javiEstrella-custom-samples) from a forked fabric repo (javiEstrella/fabric), so the correct installation command is:
 
 ```bash
-./scripts/bootstrap.sh [version] [ca version] [thirdparty_version]
+curl -sSL https://raw.githubusercontent.com/javiEstrella/fabric/javiEstrella-custom-samples/scripts/bootstrap.sh | bash -s 1.2.0 1.2.0 0.4.10
 ```
-
-## License <a name="license"></a>
-
-Hyperledger Project source code files are made available under the Apache
-License, Version 2.0 (Apache-2.0), located in the [LICENSE](LICENSE) file.
-Hyperledger Project documentation files are made available under the Creative
-Commons Attribution 4.0 International License (CC-BY-4.0), available at http://creativecommons.org/licenses/by/4.0/.
