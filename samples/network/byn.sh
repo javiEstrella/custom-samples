@@ -26,9 +26,9 @@
 # we are able to launch our network.  More detail on the tools and the structure of
 # the network will be provided later in this document.  For now, let's get going...
 
-# prepending $PWD/../bin to PATH to ensure we are picking up the correct binaries
+# prepending $PWD/../../bin to PATH to ensure we are picking up the correct binaries
 # this may be commented out to resolve installed version of tools if desired
-export PATH=${PWD}/../bin:${PWD}:$PATH
+export PATH=${PWD}/../../bin:${PWD}:$PATH
 export FABRIC_CFG_PATH=${PWD}
 export VERBOSE=false
 
