@@ -12,3 +12,10 @@ Note that to install it you must use a specific branch (javiEstrella-custom-samp
 ```bash
 curl -sSL https://raw.githubusercontent.com/javiEstrella/fabric/javiEstrella-custom-samples/scripts/bootstrap.sh | bash -s 1.2.0 1.2.0 0.4.10
 ```
+
+or:
+
+```bash
+curl -sSL https://bit.ly/2LDPs5A | bash -s 1.2.0 1.2.0 0.4.10
+```
+
