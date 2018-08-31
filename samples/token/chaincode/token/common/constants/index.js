@@ -1,0 +1,25 @@
+const CHAINCODES = {
+	'TOKEN': 'token',
+};
+
+const PREFIXES = {
+	'WALLET': 'WAL'
+};
+
+const WALLET_TYPES = {
+	'ABSTRACT': 'ABSTRACT',
+	'USER': 'USER',
+	'CONTRACT': 'CONTRACT'
+};
+
+const WALLET_TYPE_CLASSNAME_MAPPING = {
+	[WALLET_TYPES.USER]: 'UserWallet',
+	[WALLET_TYPES.CONTRACT]: 'ContractWallet'
+};
+
+module.exports = {
+	CHAINCODES,
+	PREFIXES,
+	WALLET_TYPES,
+	WALLET_TYPE_CLASSNAME_MAPPING
+};
