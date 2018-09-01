@@ -27,4 +27,5 @@ docker exec -e "CORE_PEER_LOCALMSPID=Org1MSP" -e "CORE_PEER_MSPCONFIGPATH=/opt/g
 
 printf "\nTotal setup execution time : $(($(date +%s) - starttime)) secs ...\n\n\n"
 printf "Start by installing required packages run 'npm install'\n"
-printf "Then run 'node enrollAdmin.js', then 'node registerUser'\n\n"
+printf "Then run 'node enrollAdmin.js', then 'node registerUser'\n"
+printf "To conclude run 'node app.js' to start the app\n\n"
