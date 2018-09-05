@@ -2,4 +2,4 @@
 client/node_modules/
 client/package-lock.json
 client/hfc-key-store/
-
+wallet/package-lock.json

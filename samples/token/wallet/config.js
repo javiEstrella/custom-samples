@@ -1,2 +1,2 @@
-exports.BACKEND_URL='http://192.168.1.250'
+exports.BACKEND_URL='http://192.168.1.100'
 exports.BACKEND_PORT=3000
