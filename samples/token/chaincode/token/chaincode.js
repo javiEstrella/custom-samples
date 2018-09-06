@@ -45,7 +45,7 @@ const Token = class {
 	}
 
 	async ping(stub, args) {
-		return 'pong'
+		return Buffer.from('pong')
 	}
 
 }
