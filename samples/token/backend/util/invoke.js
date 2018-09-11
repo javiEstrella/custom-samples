@@ -11,7 +11,7 @@ function execute(callback, fcn, args = {}) {
 	let client = new FabricClient()
 	let channel = client.newChannel('mychannel')
 	channel.addPeer(client.newPeer('grpc://localhost:7051'))
-	let path = require('path').join(__dirname, 'hfc-key-store')
+	let path = require('path').join(__dirname, '../hfc-key-store')
 
 	FabricClient.newDefaultKeyValueStore({ path: path
 	}).then((state) => {

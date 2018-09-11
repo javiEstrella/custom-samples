@@ -27,18 +27,18 @@ fi
 docker exec cli bash -c 'cp -r /opt/gopath/src/github.com/token /opt/gopath/src/github.com/debug'
 docker exec -w /opt/gopath/src/github.com/debug cli bash -c 'npm install; cd ..; chmod 777 debug -R'
 
-cd ../backend
-sh util/upgrade.sh 0 $1 $2
+cd ../backend/util
+sh upgrade.sh 0 $1 $2
 
 echo 'npm install'
 npm install
 
 echo 'Enroll user'
-node util/enrollAdmin.js
+node enrollAdmin.js
 
 echo 'Register user'
-node util/registerUser.js
+node registerUser.js
 
 printf "\nTotal setup execution time : $(($(date +%s) - starttime)) secs ...\n\n\n"
 printf "Run 'node app' to start the app\n"
-printf "Run 'sh util/upgrade.sh version address amount to update the chaincode\n\n"
+printf "Run 'pushd util; sh upgrade.sh [version] [address] [amount]; popd' to update the chaincode\n\n"

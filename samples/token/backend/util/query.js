@@ -25,7 +25,7 @@ function setupFabric() {
 }
 
 function execute() {
-	let path = require('path').join(__dirname, 'hfc-key-store')
+	let path = require('path').join(__dirname, '../hfc-key-store')
 
 	FabricClient.newDefaultKeyValueStore({ path: path
 	}).then((state) => {
