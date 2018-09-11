@@ -15,7 +15,7 @@ ADDRESS=`echo -n $2 | md5sum | awk '{print $1}'`
 AMOUNT=$3
 
 MSPID="CORE_PEER_LOCALMSPID=Org1MSP"
-MSPPATH="CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp" 
+MSPPATH="CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp"
 if [ $VERSION -eq 0 ]; then
         ACTION='instantiate'
 else
@@ -29,4 +29,4 @@ echo 'Running chaincode'
 sleep 5
 
 docker exec -e $MSPID -e $MSPPATH cli peer chaincode install -n token -v $VERSION -p "/opt/gopath/src/github.com/debug" -l "NODE"
-docker exec -e $MSPID -e $MSPPATH cli peer chaincode $ACTION -o orderer.example.com:7050 -C mychannel -n token -l "NODE" -v $VERSION -c '{"Args":["init", "$ADDRESS", "$AMOUNT"]}' -P "OR ('Org1MSP.member','Org2MSP.member')"
+docker exec -e $MSPID -e $MSPPATH cli peer chaincode $ACTION -o orderer.example.com:7050 -C mychannel -n token -l "NODE" -v $VERSION -c '{"Args":["init", "'$ADDRESS'", "'$AMOUNT'"]}' -P "OR ('Org1MSP.member','Org2MSP.member')"

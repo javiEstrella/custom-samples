@@ -44,10 +44,25 @@ const Token = class {
 		}
 	}
 
+	// Check chaincode
 	async ping(stub, args) {
 		return Buffer.from('pong')
 	}
 
+	// Query account
+	async query(stub, args) {
+		if (args.length != 1) {
+			throw new Error('Incorrect number of arguments. Expecting account')
+		}
+
+		let account = args[0]
+		let bytes = await stub.getState(account)
+		if (!bytes) {
+			throw new Error(JSON.stringify({error: 'Failed to get state for ' + account}))
+		}
+
+		return Buffer.from(bytes)
+	}
 }
 
 shim.start(new Token(shim))

@@ -1,24 +1,20 @@
 'use strict'
 var FabricClient
 var client, channel
+var request = {}
 
-var request = {
-	chaincodeId: 'token',
-	args: []
-}
+var invoke = require('./invoke')
 
 prepareRequest()
 setupFabric()
 execute()
 
 function prepareRequest() {
-	let arg = require('minimist')(process.argv.slice(2))
-	if (!arg.fcn) {
-		console.log('Unspecified function')
+	request = invoke.parseQuery(require('minimist')(process.argv.slice(2)))
+	if (request.error) {
+		console.log(request.error)
 		process.exit(1)
 	}
-
-	request.fcn = arg.fcn
 }
 
 function setupFabric() {

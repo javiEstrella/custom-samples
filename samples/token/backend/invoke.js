@@ -1,11 +1,11 @@
 'use strict'
 var FabricClient = require('fabric-client')
 
-function execute(callback, fcn) {
-	let request = {
-		chaincodeId: 'token',
-		fcn: fcn,
-		args: []
+function execute(callback, fcn, args = {}) {
+	args.fcn = fcn
+	let request = parseQuery(args)
+	if (request.error) {
+		throw new Error(request.error)
 	}
 
 	let client = new FabricClient()
@@ -39,4 +39,47 @@ function execute(callback, fcn) {
 	})
 }
 
+function parseQuery(args) {
+	let request = {
+		chaincodeId: 'token',
+		args: []
+	}
+
+	if (!args.fcn) {
+		request.error = 'Unspecified function'
+		return request
+	}
+
+	request.fcn = args.fcn
+	switch(request.fcn) {
+		case 'ping':
+			break
+
+		case 'query':
+			let error = validate(args, ['account'])
+			if (error != null) {
+				request.error = error
+				return request
+			}
+			request.args = [args.account]
+			break
+
+		default:
+			request.error = 'Unsupported function: ' + request.fcn
+	}
+
+	return request
+}
+
+function validate(args, parameters) {
+	let i = 0
+	for (i = 0; i < parameters.length; i++) {
+		if (!args[parameters[i]]) {
+			return 'Unspecificed argument: ' + parameters[i]
+		}
+	}
+	return null
+}
+
 module.exports.execute = execute
+module.exports.parseQuery = parseQuery
