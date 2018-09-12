@@ -39,7 +39,6 @@ function deploy_token {
 	fi
 
 	pushd ./custom-samples/samples/token/backend/
-		npm install
 		bash start.sh a 100
 	popd
 }

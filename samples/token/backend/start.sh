@@ -30,14 +30,21 @@ docker exec -w /opt/gopath/src/github.com/debug cli bash -c 'npm install; cd ..;
 cd ../backend/util
 sh upgrade.sh 0 $1 $2
 
+# Install packages
+cd ../
 echo 'npm install'
 npm install
 
+# Register users
+cd util/
 echo 'Enroll user'
 node enrollAdmin.js
 
 echo 'Register user'
 node registerUser.js
+
+# End
+cd ../
 
 printf "\nTotal setup execution time : $(($(date +%s) - starttime)) secs ...\n\n\n"
 printf "Run 'node app' to start the app\n"
