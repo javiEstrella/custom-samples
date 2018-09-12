@@ -51,12 +51,13 @@ function parseQuery(args) {
 	}
 
 	request.fcn = args.fcn
+	let error = null
 	switch(request.fcn) {
 		case 'ping':
 			break
 
 		case 'query':
-			let error = validate(args, ['account'])
+			error = validate(args, ['account'])
 			if (error != null) {
 				request.error = error
 				return request
@@ -64,15 +65,26 @@ function parseQuery(args) {
 			request.args = [args.account]
 			break
 
+		case 'transfer':
+			error = validate(args, ['source', 'target', 'amount', 'timestamp', 'signature'])
+			if (error != null) {
+				request.error = error
+				return request
+			}
+			request.args = [args.source, args.target, args.amount, args.timestamp, args.signature]
+			break
+
 		default:
 			request.error = 'Unsupported function: ' + request.fcn
 	}
+
+	for (let item in request.args) request.args[item] = request.args[item].toString()
 
 	return request
 }
 
 function validate(args, parameters) {
-	let i = 0
+	let i
 	for (i = 0; i < parameters.length; i++) {
 		if (!args[parameters[i]]) {
 			return 'Unspecificed argument: ' + parameters[i]

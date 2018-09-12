@@ -58,16 +58,16 @@ function verify(key, message, signature, type = 'public') {
 				if (isString(key))
 					key = ec.keyFromPublic(key, 'hex')
 				break
-	
+
 			case 'private':
 				if (isString(key))
 					key = generateKey(key)
 				break
-	
+
 			default:
 				return false
 			}
-	
+
 			return key.verify(sha256(message), signature)
 		} catch (error) {
 		}
