@@ -1,0 +1,99 @@
+#!/bin/bash
+
+function usage {
+	echo 'Use: '$0' <clean|get|tag|deploy-token|p4t|clean-token|refresh-token>'
+	echo -e '\tclean: remove previous installation'
+	echo -e '\tget: obtain samples'
+	echo -e '\ttag: update release'
+	echo -e '\tdeploy-token: deploy token sample'
+	echo -e '\tp4t: prepare for test'
+	echo -e '\tclean-token: clean token sample'
+	echo -e '\trefresh-token: refresh token'
+	exit 1
+}
+
+function clean {
+	if [ -d custom-samples ]; then
+		rm -rf custom-samples
+	fi
+}
+
+function get {
+	clean
+	curl -sSL https://bit.ly/2LDPs5A | bash -s 1.2.0 1.2.0 0.4.10
+}
+
+function tag {
+	if [ -d wip-custom-samples ]; then
+		pushd ./wip-custom-samples/
+			git push origin :refs/tags/v1.2.0
+			git tag -fa v1.2.0
+			git push origin release-1.2 --tags
+		popd
+	fi
+}
+
+function deploy_token {
+	if [ ! -d custom-samples ]; then
+		get
+	fi
+
+	pushd ./custom-samples/samples/token/backend/
+		npm install
+		bash start.sh a 100
+	popd
+}
+
+function p4t {
+	if [ ! -d custom-samples ]; then
+		get
+	fi
+
+	rm -rf custom-samples/samples
+	cp -r wip-custom-samples/samples custom-samples/samples
+}
+
+function clean_token {
+	if [ -d custom-samples ]; then
+	        pushd ./custom-samples/samples/token/network/
+		sh teardown.sh
+		popd
+	fi
+}
+
+function refresh_token {
+	if [ -d custom-samples ]; then
+		cp wip-custom-samples/samples/token/* -R custom-samples/samples/token/
+	fi
+}
+
+if [ $# -ne 1 ]; then
+	usage
+fi
+
+case "$1" in
+	clean)
+		clean
+		;;
+	get)
+		get
+		;;
+	tag)
+		tag
+		;;
+	deploy-token)
+		deploy_token
+		;;
+	p4t)
+		p4t
+		;;
+	clean-token)
+		clean_token
+		;;
+	refresh-token)
+		refresh_token
+		;;
+	*)
+		usage
+esac
+
