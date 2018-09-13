@@ -5,3 +5,4 @@ client/hfc-key-store/
 wallet/package-lock.json
 
 chaincode/debug/
+offline/

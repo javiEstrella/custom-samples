@@ -9,6 +9,7 @@ function usage {
 	echo -e '\tp4t: prepare for test'
 	echo -e '\tclean-token: clean token sample'
 	echo -e '\trefresh-token: refresh token'
+	echo -e '\tprepare-offline: prepare offline'
 	exit 1
 }
 
@@ -66,6 +67,12 @@ function refresh_token {
 	fi
 }
 
+function prepare_offline {
+	if [ -d custom-samples ]; then
+		cp -r offline custom-samples/samples/token/offline
+	fi
+}
+
 if [ $# -ne 1 ]; then
 	usage
 fi
@@ -91,6 +98,9 @@ case "$1" in
 		;;
 	refresh-token)
 		refresh_token
+		;;
+	prepare-offline)
+		prepare_offline
 		;;
 	*)
 		usage

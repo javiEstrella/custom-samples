@@ -26,7 +26,9 @@ cd ..
 # Install packages
 cd backend
 echo 'npm install'
-npm install
+cp ../offline/backend.tar .
+tar -xf backend.tar
+rm backend.tar
 cd ..
 
 # Now launch the CLI container in order to install and instantiate chaincode
@@ -39,8 +41,11 @@ if [ -d 'chaincode/debug' ]; then
 fi
 
 docker exec cli bash -c 'cp -r /opt/gopath/src/github.com/token /opt/gopath/src/github.com/debug'
-docker exec -w /opt/gopath/src/github.com/debug cli bash -c 'npm install'
 docker exec -w /opt/gopath/src/github.com cli bash -c 'chmod 777 debug -R'
+cd chaincode/debug
+cp ../../offline/docker.tar .
+tar -xf docker.tar
+cd ../../
 
 cd backend/util
 sh upgrade.sh 0 $1 $2

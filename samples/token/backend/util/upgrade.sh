@@ -11,7 +11,9 @@ fi
 
 # Address
 VERSION=$1
-ADDRESS=`node crypto/public.js $2`
+cd ..
+ADDRESS=`node util/crypto/public.js $2`
+cd util
 AMOUNT=$3
 
 MSPID="CORE_PEER_LOCALMSPID=Org1MSP"
