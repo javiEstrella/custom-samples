@@ -10,6 +10,7 @@ function usage {
 	echo -e '\tclean-token: clean token sample'
 	echo -e '\trefresh-token: refresh token'
 	echo -e '\tprepare-offline: prepare offline'
+	echo -e '\tpatch: patch source'
 	exit 1
 }
 
@@ -73,6 +74,18 @@ function prepare_offline {
 	fi
 }
 
+function patch {
+	if [ -d custom-samples ]; then
+		pushd custom-samples
+		git diff > ../wip-custom-samples/patch.patch
+		popd
+		pushd wip-custom-samples
+		git apply patch.patch
+		rm patch.patch
+		popd
+	fi
+}
+
 if [ $# -ne 1 ]; then
 	usage
 fi
@@ -101,6 +114,9 @@ case "$1" in
 		;;
 	prepare-offline)
 		prepare_offline
+		;;
+	patch)
+		patch
 		;;
 	*)
 		usage

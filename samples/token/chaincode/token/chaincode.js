@@ -111,8 +111,7 @@ const Token = class {
 			throw new Error(JSON.stringify({error: 'Failed to get state for ' + target}))
 		}
 
-		other = other + amount
-
+		other = (isNaN(parseInt(other))) ? amount : parseInt(other) + parseInt(amount)
 		await stub.putState(source, Buffer.from((balance - amount).toString()))
 		await stub.putState(target, Buffer.from(other.toString()))
 
