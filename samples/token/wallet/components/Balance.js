@@ -1,24 +1,40 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text } from 'react-native'
+import PropTypes from 'prop-types'
+import {
+	StyleSheet,
+	View,
+	Text
+} from 'react-native'
+
+import Keys from '../config/keys'
 
 export default class Balance extends Component {
-	constructor(props) {
-		super(props)
-	}
-
 	render() {
 		return (
 			<View style={styles.parent}>
-				<Text style={styles.balanceText}>{this.props.balance}</Text>
-				<Text style={styles.tokenText}>{this.props.token}</Text>
+				<Text style={styles.tokensText}>{ this.props.tokens }</Text>
+				<Text style={styles.symbolText}>{ this.context.get(Keys.symbol) }</Text>
 			</View>
 		)
 	}
 }
 
+Balance.propTypes = {
+	tokens: PropTypes.number
+}
+
 Balance.defaultProps = {
-	balance: '0',
-	token: 'Pts'
+	tokens: 0
+}
+
+Balance.contextTypes = {
+	storage: PropTypes.object,
+	data: PropTypes.object,
+	get: PropTypes.func,
+	register: PropTypes.func,
+	load: PropTypes.func,
+	read: PropTypes.func,
+	save: PropTypes.func
 }
 
 const styles = StyleSheet.create({
@@ -30,13 +46,13 @@ const styles = StyleSheet.create({
 		backgroundColor: 'ivory'
 	},
 
-	balanceText: {
+	tokensText: {
 		fontSize: 35,
 		padding: 2,
 		color: 'black'
 	},
 
-	tokenText: {
+	symbolText: {
 		fontSize: 35,
 		padding: 2,
 		fontWeight: 'bold',

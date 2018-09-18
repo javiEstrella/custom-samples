@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text } from 'react-native'
+import PropTypes from 'prop-types'
+import {
+	StyleSheet,
+	View,
+	Text
+} from 'react-native'
 
 import Buttons from './Buttons'
 
 export default class Dashboard extends Component {
-	constructor(props) {
-		super(props)
-	}
-
 	render() {
 		return (
 			<View style={styles.parent}>
@@ -18,8 +19,12 @@ export default class Dashboard extends Component {
 	}
 }
 
+Dashboard.propTypes = {
+	content: PropTypes.string
+}
+
 Dashboard.defaultProps = {
-	content: 'Work In Progress'
+	content: 'TODO Transaction list'
 }
 
 const styles = StyleSheet.create({
