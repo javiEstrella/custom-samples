@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import {
 	StyleSheet,
 	View,
@@ -10,17 +9,15 @@ import Buttons from './Buttons'
 
 export default class Dashboard extends Component {
 	render() {
+		const { content } = this.props
+
 		return (
-			<View style={styles.parent}>
+			<View style={ styles.parent }>
 				<Buttons />
-				<Text style={styles.content}>{this.props.content}</Text>
+				<Text style={styles.content}>{ content }</Text>
 			</View>
 		)
 	}
-}
-
-Dashboard.propTypes = {
-	content: PropTypes.string
 }
 
 Dashboard.defaultProps = {
@@ -30,7 +27,7 @@ Dashboard.defaultProps = {
 const styles = StyleSheet.create({
 	parent: {
 		flex: 1,
-		backgroundColor: 'black',
+		backgroundColor: '#586589'
 	},
 
 	content: {

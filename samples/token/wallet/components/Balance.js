@@ -1,41 +1,30 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import {
 	StyleSheet,
 	View,
 	Text
 } from 'react-native'
 
-import Keys from '../config/keys'
+import { connect } from 'react-redux'
 
-export default class Balance extends Component {
+const mapStateToProps = state => {
+	return { tokens: state.tokens }
+}
+
+class Balance extends Component {
 	render() {
+		const { tokens } = this.props
+
 		return (
 			<View style={styles.parent}>
-				<Text style={styles.tokensText}>{ this.props.tokens }</Text>
-				<Text style={styles.symbolText}>{ this.context.get(Keys.symbol) }</Text>
+				<Text style={styles.text}>{ tokens }</Text>
+				<Text style={[styles.text, styles.weight]}>Pesetas</Text>
 			</View>
 		)
 	}
 }
 
-Balance.propTypes = {
-	tokens: PropTypes.number
-}
-
-Balance.defaultProps = {
-	tokens: 0
-}
-
-Balance.contextTypes = {
-	storage: PropTypes.object,
-	data: PropTypes.object,
-	get: PropTypes.func,
-	register: PropTypes.func,
-	load: PropTypes.func,
-	read: PropTypes.func,
-	save: PropTypes.func
-}
+export default connect(mapStateToProps, {})(Balance)
 
 const styles = StyleSheet.create({
 	parent: {
@@ -46,16 +35,13 @@ const styles = StyleSheet.create({
 		backgroundColor: 'ivory'
 	},
 
-	tokensText: {
+	text: {
 		fontSize: 35,
 		padding: 2,
-		color: 'black'
+		color: '#171F33'
 	},
 
-	symbolText: {
-		fontSize: 35,
-		padding: 2,
-		fontWeight: 'bold',
-		color: 'black'
+	weight: {
+		fontWeight: 'bold'
 	}
 })
