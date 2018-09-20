@@ -17,10 +17,10 @@ const logger = createLogger({})
 const middleware = applyMiddleware(logger)
 
 import reducer from './redux/Reducer'
-let store = createStore(reducer, middleware)
+export const store = createStore(reducer, middleware)
 
 // Adapted from https://medium.com/@sumitkushwaha/syncing-redux-store-with-asyncstorage-in-react-native-2b8b890b9ca1
-export default class App extends Component {
+class App extends Component {
 	state = {
 		isStoreLoading: false,
 		store: store
@@ -74,3 +74,5 @@ export default class App extends Component {
 		}
 	}
 }
+
+export default App

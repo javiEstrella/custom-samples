@@ -14,6 +14,7 @@ import {
 
 import Dialog from 'react-native-dialog'
 import { updateAddress } from '../redux/actions/updateAddress'
+import { updatePublic } from '../redux/actions/updatePublic'
 import { updateTokens } from '../redux/actions/updateTokens'
 
 import Migrate from '../services/Migrate'
@@ -25,6 +26,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 	return {
 		updateAddress: privateAddress => dispatch(updateAddress(privateAddress)),
+		updatePublic: publicAddress => dispatch(updatePublic(publicAddress)),
 		updateTokens: tokens => dispatch(updateTokens(tokens))
 	}
 }
@@ -35,13 +37,17 @@ class AccountDialog extends Component {
 	save = this.save.bind(this)
 
 	async save() {
-		const { updateAddress, updateTokens, close } = this.props
+		const { updateAddress, updatePublic, updateTokens, close } = this.props
 		const { tmp } = this.state
 
 		updateAddress(tmp)
 
 		// Migrate to thunk
-		let tokens = await Migrate.obtainTokens(tmp)
+		let publicAddress = await Migrate.obtainPublic(tmp)
+		updatePublic(publicAddress)
+
+		// Migrate to thunk
+		let tokens = await Migrate.obtainTokens(publicAddress)
 		updateTokens(tokens)
 
 		close()

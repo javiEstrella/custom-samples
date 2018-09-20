@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-
 import {
 	StyleSheet,
 	View,
@@ -7,16 +6,41 @@ import {
 	Text
 } from 'react-native'
 
+import { store } from '../App'
+
+import {
+	connect,
+	dispatch
+} from 'react-redux'
+
 import AccountDialog from './AccountDialog'
 import Backend from '../services/Backend'
+import Migrate from '../services/Migrate'
 
-export default class Buttons extends Component {
+import { updateTokens } from '../redux/actions/updateTokens'
+
+const mapDispatchToProps = dispatch => {
+	return {
+		updateTokens: tokens => dispatch(updateTokens(tokens))
+	}
+}
+
+class Buttons extends Component {
 	state = {
 		accountDialogVisible: false
 	}
 
-	refresh() {
-		// TODO Update address invokes token update
+	async refresh() {
+		const { updateTokens } = this.props
+		const { publicAddress, tokens } = store.getState()
+
+		if (publicAddress) {
+			let newTokens = await Migrate.obtainTokens(publicAddress)
+			console.log(newTokens)
+			if (newTokens != tokens) {
+				updateTokens(newTokens)
+			}
+		}
 	}
 
 	render() {
@@ -43,9 +67,12 @@ export default class Buttons extends Component {
 	}
 }
 
+export default connect(null, mapDispatchToProps)(Buttons)
+
 const styles = StyleSheet.create({
 	parent: {
-		margin: 20,
+		margin: 10,
+		marginBottom: 0,
 		flexDirection: 'row',
 		justifyContent: 'center'
 	},

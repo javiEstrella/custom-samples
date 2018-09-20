@@ -6,6 +6,7 @@ import {
 } from 'react-native'
 
 import Buttons from './Buttons'
+import PublicAccount from './PublicAccount'
 
 export default class Dashboard extends Component {
 	render() {
@@ -14,14 +15,10 @@ export default class Dashboard extends Component {
 		return (
 			<View style={ styles.parent }>
 				<Buttons />
-				<Text style={styles.content}>{ content }</Text>
+				<PublicAccount />
 			</View>
 		)
 	}
-}
-
-Dashboard.defaultProps = {
-	content: 'TODO Transaction list'
 }
 
 const styles = StyleSheet.create({
