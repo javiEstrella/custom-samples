@@ -1,23 +1,22 @@
 import React, { Component } from 'react'
 import {
 	View,
-	Text,
 	StyleSheet
 } from 'react-native'
 
-import Balance from '../components/Balance'
-import Dashboard from '../components/Dashboard'
+import Key from './components/Key'
+import Keys from './components/Keys'
 
-export default class AccountState extends Component {
+export default class Account extends Component {
 	render() {
 		return (
 			<View style={ styles.parent }>
 				<View style={ styles.topContainer }>
-					<Balance />
+					<Key />
 				</View>
 	
 				<View style={ styles.bottomContainer }>
-					<Dashboard />
+					<Keys />
 				</View>
 			</View>
 		)

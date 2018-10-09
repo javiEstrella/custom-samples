@@ -17,5 +17,16 @@ export default {
 			result = await Crypto.getPublic(privateAddress)
 		}
 		return result
+	},
+
+	async transfer(privateAddress, target, amount) {
+		let result = null
+		if (privateAddress != null) {
+			let timestamp = Date.now()
+			let publicAddress = await Crypto.getPublic(privateAddress)
+			let signature = await Crypto.sign(privateAddress, target, amount, timestamp)
+			result = await Backend.transfer(publicAddress, target, amount, timestamp, signature)
+		}
+		return result
 	}
 }

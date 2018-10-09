@@ -13,20 +13,20 @@ import {
 } from 'react-redux'
 
 import Dialog from 'react-native-dialog'
-import { updateAddress } from '../redux/actions/updateAddress'
-import { updatePublic } from '../redux/actions/updatePublic'
-import { updateTokens } from '../redux/actions/updateTokens'
+import { updatePrivateKey } from '../../../redux/actions/updatePrivateKey'
+import { updatePublicKey } from '../../../redux/actions/updatePublicKey'
+import { updateTokens } from '../../../redux/actions/updateTokens'
 
-import Migrate from '../services/Migrate'
+import Migrate from '../../../services/Migrate'
 
 const mapStateToProps = state => {
-	return { privateAddress: state.privateAddress }
+	return { privateKey: state.privateKey }
 }
 
 const mapDispatchToProps = dispatch => {
 	return {
-		updateAddress: privateAddress => dispatch(updateAddress(privateAddress)),
-		updatePublic: publicAddress => dispatch(updatePublic(publicAddress)),
+		updatePrivateKey: privateKey=> dispatch(updatePrivateKey(privateKey)),
+		updatePublicKey: publicKey => dispatch(updatePublicKey(publicKey)),
 		updateTokens: tokens => dispatch(updateTokens(tokens))
 	}
 }
@@ -37,24 +37,24 @@ class AccountDialog extends Component {
 	save = this.save.bind(this)
 
 	async save() {
-		const { updateAddress, updatePublic, updateTokens, close } = this.props
+		const { updatePrivateKey, updatePublicKey, updateTokens, close } = this.props
 		const { tmp } = this.state
 
-		updateAddress(tmp)
+		updatePrivateKey(tmp)
 
 		// Migrate to thunk
-		let publicAddress = await Migrate.obtainPublic(tmp)
-		updatePublic(publicAddress)
+		let publicKey = await Migrate.obtainPublic(tmp)
+		updatePublicKey(publicKey)
 
 		// Migrate to thunk
-		let tokens = await Migrate.obtainTokens(publicAddress)
+		let tokens = await Migrate.obtainTokens(publicKey)
 		updateTokens(tokens)
 
 		close()
 	}
 
 	componentDidMount() {
-		this.setState({ tmp: this.state.privateAddress })
+		this.setState({ tmp: this.state.privateKey })
 	}
 
 	render() {
@@ -64,7 +64,7 @@ class AccountDialog extends Component {
 		return (
 			<View>
 				<Dialog.Container visible={ visible }>
-					<Dialog.Title>Private address</Dialog.Title>
+					<Dialog.Title>Private key</Dialog.Title>
 					<Dialog.Input
 						autocapitalize='none'
 						value={ tmp }

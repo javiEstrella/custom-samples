@@ -5,46 +5,42 @@ import {
 } from 'react-navigation'
 
 import Icon from '@expo/vector-icons/FontAwesome'
-import AccountState from '../screens/AccountState'
-import Private from '../screens/Private'
-import Bookmarks from '../screens/Bookmarks'
-import Likes from '../screens/Likes'
+
+import Account from '../screens/account/Account'
+import Transactions from '../screens/transactions/Transactions'
+import Transaction from '../screens/transaction/Transaction'
 
 const TabBarComponent = (props) => (<BottomTabBar {...props}></BottomTabBar>)
 
 const BaseNavigator = createBottomTabNavigator({
-	AccountState: {
-		screen: AccountState,
+
+	Account: {
+		screen: Account,
 		navigationOptions: () => ({
 			tabBarIcon: ({tintColor}) => (
 				<Icon color={tintColor} size={24} name='user' />
 			)
 		})
 	},
-	Private: {
-		screen: Private,
+
+	Transactions: {
+		screen: Transactions,
 		navigationOptions: () => ({
 			tabBarIcon: ({tintColor}) => (
-				<Icon color={tintColor} size={24} name='lock' />
+				<Icon color={tintColor} size={24} name='exchange' />
 			)
 		})
 	},
-	Bookmarks: {
-		screen: Bookmarks,
+
+	Transaction: {
+		screen: Transaction,
 		navigationOptions: () => ({
 			tabBarIcon: ({tintColor}) => (
-				<Icon color={tintColor} size={24} name='bookmark' />
-			)
-		})
-	},
-	Likes: {
-		screen: Likes,
-		navigationOptions: () => ({
-			tabBarIcon: ({tintColor}) => (
-				<Icon color={tintColor} size={24} name='heart' />
+				<Icon color={tintColor} size={24} name='arrow-right' />
 			)
 		})
 	}
+
 	}, {
 		tabBarOptions: {
 			showLabel: false,
