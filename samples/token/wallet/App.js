@@ -12,6 +12,11 @@ import {
 	createStore
 } from 'redux'
 
+import {
+	Camera,
+	Permissions
+} from 'expo'
+
 import thunkMiddleware from 'redux-thunk'
 import { createLogger } from 'redux-logger'
 const loggerMiddleware = createLogger({})

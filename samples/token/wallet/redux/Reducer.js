@@ -4,10 +4,16 @@ import {
 	UPDATE_VISIBLE_KEY,
 	UPDATE_TOKENS,
 	UPDATE_REMOTE_ADDRESS,
-	UPDATE_TOKENS_TO_TRANSFER
+	UPDATE_TOKENS_TO_TRANSFER,
+	UPDATE_VISIBLE_ADDRESS_SCANNER,
+	UPDATE_ADDRESS_SCANNER_RESULT,
+	UPDATE_ADDRESS_SCANNER_INVOCATOR,
 } from './actions'
 
 const initialState = {
+	visibleAddressScanner: false,
+	addressScannerResult: null,
+	addressScannerInvocator: null,
 	privateKey: '',
 	publicKey: '',
 	visibleKey: 'public',
@@ -46,6 +52,15 @@ const reducer = (state = initialState, action) => {
 
 		case UPDATE_TOKENS_TO_TRANSFER:
 			return { ...state, tokensToTransfer: payload }
+
+		case UPDATE_VISIBLE_ADDRESS_SCANNER:
+			return { ...state, visibleAddressScanner: payload }
+
+		case UPDATE_ADDRESS_SCANNER_RESULT:
+			return { ...state, addressScannerResult: payload }
+
+		case UPDATE_ADDRESS_SCANNER_INVOCATOR:
+			return { ...state, addressScannerInvocator: payload }
 
 		default:
 			return state

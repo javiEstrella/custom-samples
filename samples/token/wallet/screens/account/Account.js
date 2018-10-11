@@ -4,24 +4,41 @@ import {
 	StyleSheet
 } from 'react-native'
 
+import AddressScanner from '../../components/AddressScanner'
 import Key from './components/Key'
 import Keys from './components/Keys'
 
-export default class Account extends Component {
+import {
+	connect
+} from 'react-redux'
+
+const mapStateToProps = state => {
+	return { visibleAddressScanner: state.visibleAddressScanner }
+}
+
+class Account extends Component {
 	render() {
-		return (
-			<View style={ styles.parent }>
-				<View style={ styles.topContainer }>
-					<Key />
+		const { visibleAddressScanner } = this.props
+
+		if (visibleAddressScanner) {
+			return (<AddressScanner />)
+		} else {
+			return (
+				<View style={ styles.parent }>
+					<View style={ styles.topContainer }>
+						<Key />
+					</View>
+		
+					<View style={ styles.bottomContainer }>
+						<Keys />
+					</View>
 				</View>
-	
-				<View style={ styles.bottomContainer }>
-					<Keys />
-				</View>
-			</View>
-		)
+			)
+		}
 	}
 }
+
+export default connect(mapStateToProps, {})(Account)
 
 const styles = StyleSheet.create({
 	parent: {

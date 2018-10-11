@@ -5,9 +5,15 @@ import {
 	AsyncStorage
 } from 'react-native'
 
+import AddressScanner from './components/AddressScanner'
 import { BaseNavigator } from './navigation'
 
-export default class Wallet extends Component {
+import {
+	connect
+} from 'react-redux'
+
+class Wallet extends Component {
+
 	render() {
 		return (
 			<View style={styles.parent}>
@@ -16,6 +22,8 @@ export default class Wallet extends Component {
 		)
 	}
 }
+
+export default connect(null, {})(Wallet)
 
 const styles = StyleSheet.create({
 	parent: {

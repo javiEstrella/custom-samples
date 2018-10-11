@@ -8,8 +8,7 @@ import {
 } from 'react-native'
 
 import {
-	connect,
-	dispatch
+	connect
 } from 'react-redux'
 
 import Dialog from 'react-native-dialog'
@@ -17,12 +16,6 @@ import { updateRemoteAddress } from '../../../redux/actions/updateRemoteAddress'
 
 const mapStateToProps = state => {
 	return { remoteAddress: state.remoteAddress }
-}
-
-const mapDispatchToProps = dispatch => {
-	return {
-		updateRemoteAddress: remoteAddress => dispatch(updateRemoteAddress(remoteAddress))
-	}
 }
 
 class RemoteAddressDialog extends Component {
@@ -39,7 +32,9 @@ class RemoteAddressDialog extends Component {
 	}
 
 	componentDidMount() {
-		this.setState({ tmp: this.state.remoteAddress })
+		const { remoteAddress } = this.props
+
+		this.setState({ tmp: remoteAddress })
 	}
 
 	render() {
@@ -62,4 +57,4 @@ class RemoteAddressDialog extends Component {
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RemoteAddressDialog)
+export default connect(mapStateToProps, {})(RemoteAddressDialog)

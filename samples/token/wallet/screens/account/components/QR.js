@@ -32,11 +32,14 @@ class QR extends Component {
 
 		return (
 			<View style={ styles.parent }>
-				<QRCode
-					value={ address }
-					size={ 200 }
-					bgColor='ivory'
-					fgColor='#586589' />
+				<View style={ styles.qrContainer }>
+					<QRCode
+						value={ address }
+						size={ 200 }
+						bgColor='#171F33'
+						fgColor='ivory' >
+					</QRCode>
+				</View>
 			</View>
 		)
 	}
@@ -51,6 +54,13 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center',
 		backgroundColor: '#586589'
+	},
+
+	qrContainer: {
+		backgroundColor: 'ivory',
+		padding: 10,
+		borderWidth: 3,
+		borderColor: '#171F33'
 	},
 
 	text: {

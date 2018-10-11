@@ -6,26 +6,41 @@ import {
 	Platform
 } from 'react-native'
 
-import { Slider } from 'react-native-elements'
-
+import AddressScanner from '../../components/AddressScanner'
 import TokensToTransfer from './components/TokensToTransfer'
 import RemoteAddress from './components/RemoteAddress'
 import TransferButton from './components/TransferButton'
 
-export default class Transaction extends Component {
+import {
+	connect
+} from 'react-redux'
+
+const mapStateToProps = state => {
+	return { visibleAddressScanner: state.visibleAddressScanner }
+}
+
+class Transaction extends Component {
 	render() {
-		return (
-			<View style={ styles.parent }>
-				<Text style={ styles.text }>Transfer</Text>
-				<TokensToTransfer />
-				<Text style={ styles.text }>pesetas</Text>
-				<Text style={ styles.text }>to</Text>
-				<RemoteAddress />
-				<TransferButton />
-			</View>
-		)
+		const { visibleAddressScanner } = this.props
+
+		if (visibleAddressScanner) {
+			return (<AddressScanner />)
+		} else {
+			return (
+				<View style={ styles.parent }>
+					<Text style={ styles.text }>Transfer</Text>
+					<TokensToTransfer />
+					<Text style={ styles.text }>pesetas</Text>
+					<Text style={ styles.text }>to</Text>
+					<RemoteAddress />
+					<TransferButton />
+				</View>
+			)
+		}
 	}
 }
+
+export default connect(mapStateToProps, {})(Transaction)
 
 const styles = StyleSheet.create({
 	parent: {

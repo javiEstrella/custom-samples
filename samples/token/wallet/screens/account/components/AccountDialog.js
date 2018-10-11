@@ -13,22 +13,9 @@ import {
 } from 'react-redux'
 
 import Dialog from 'react-native-dialog'
-import { updatePrivateKey } from '../../../redux/actions/updatePrivateKey'
-import { updatePublicKey } from '../../../redux/actions/updatePublicKey'
-import { updateTokens } from '../../../redux/actions/updateTokens'
-
-import Migrate from '../../../services/Migrate'
 
 const mapStateToProps = state => {
 	return { privateKey: state.privateKey }
-}
-
-const mapDispatchToProps = dispatch => {
-	return {
-		updatePrivateKey: privateKey=> dispatch(updatePrivateKey(privateKey)),
-		updatePublicKey: publicKey => dispatch(updatePublicKey(publicKey)),
-		updateTokens: tokens => dispatch(updateTokens(tokens))
-	}
 }
 
 class AccountDialog extends Component {
@@ -37,24 +24,17 @@ class AccountDialog extends Component {
 	save = this.save.bind(this)
 
 	async save() {
-		const { updatePrivateKey, updatePublicKey, updateTokens, close } = this.props
+		const { close, setPrivateKey } = this.props
 		const { tmp } = this.state
 
-		updatePrivateKey(tmp)
-
-		// Migrate to thunk
-		let publicKey = await Migrate.obtainPublic(tmp)
-		updatePublicKey(publicKey)
-
-		// Migrate to thunk
-		let tokens = await Migrate.obtainTokens(publicKey)
-		updateTokens(tokens)
-
+		await setPrivateKey(tmp)
 		close()
 	}
 
 	componentDidMount() {
-		this.setState({ tmp: this.state.privateKey })
+		const { privateKey } = this.props
+
+		this.setState({ tmp: privateKey })
 	}
 
 	render() {
@@ -77,4 +57,4 @@ class AccountDialog extends Component {
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AccountDialog)
+export default connect(mapStateToProps, {})(AccountDialog)

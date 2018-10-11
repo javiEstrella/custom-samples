@@ -1,5 +1,12 @@
 {
-  "expo": {
-    "sdkVersion": "27.0.0"
-  }
+	"expo": {
+		"sdkVersion": "27.0.0"
+	},
+	"ios": {
+		"supportsTablet": true,
+		"permissions": ["CAMERA"]
+	},
+	"android": {
+		"permissions": ["CAMERA"]
+	}
 }
